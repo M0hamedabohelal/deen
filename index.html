@@ -1,0 +1,1749 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إضافات كتاب الفقه - الفهرس والنسخة الكاملة</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ✅ PDF Library (no SRI to avoid blocking) -->
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+
+    <style>
+      :root {
+        --gold: #b08d57;
+        --gold-2: #c9a46a;
+        --gold-pale: #f5e6c8;
+
+        --green-deep: #1a472a;
+        --green-dark: #0e2e18;
+        --green-mid: #2d6a4f;
+
+        --ink: #1c1b19;
+        --ink-soft: #3a342c;
+
+        --paper: #fffdf6;
+        --paper-2: #fbf4e6;
+        --paper-edge: rgba(176, 141, 87, 0.18);
+        --paper-shadow: rgba(0, 0, 0, 0.12);
+
+        --hadith-bg: #f6fbf6;
+        --meta-bg: #faf5ea;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(
+            ellipse at 20% 20%,
+            rgba(176, 141, 87, 0.1) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(26, 71, 42, 0.08) 0%,
+            transparent 60%
+          ),
+          #efe8dc;
+        font-family: "Amiri", serif;
+        color: var(--ink);
+        line-height: 2;
+        padding: 34px 0 70px;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* ============================================================
+         TOP BAR + PDF BUTTON
+      ============================================================ */
+      .topbar {
+        width: 820px;
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        direction: rtl;
+      }
+
+      .topbar .hint {
+        color: rgba(28, 27, 25, 0.7);
+        font-size: 1.05em;
+        background: rgba(255, 255, 255, 0.45);
+        border: 1px solid rgba(176, 141, 87, 0.2);
+        padding: 10px 14px;
+        border-radius: 10px;
+        backdrop-filter: blur(6px);
+      }
+
+      .pdf-btn {
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        font-family: "Amiri", serif;
+        font-weight: 700;
+        font-size: 1.1em;
+        color: #fff;
+        background: linear-gradient(
+          135deg,
+          var(--green-deep),
+          var(--green-dark)
+        );
+        padding: 12px 18px;
+        border-radius: 12px;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .pdf-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+      }
+
+      .pdf-btn:active {
+        transform: translateY(0px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      }
+
+      .pdf-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ============================================================
+         COVER
+      ============================================================ */
+      .cover {
+        width: 820px;
+        margin: 0 auto;
+        background: linear-gradient(
+          150deg,
+          var(--green-deep) 0%,
+          var(--green-dark) 58%,
+          #071a0d 100%
+        );
+        color: #fff;
+        text-align: center;
+        padding: 66px 72px 60px;
+        direction: rtl;
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px 16px 0 0;
+        box-shadow:
+          0 -5px 0 var(--gold) inset,
+          0 18px 55px rgba(0, 0, 0, 0.22);
+      }
+
+      .cover::before {
+        content: "❁";
+        position: absolute;
+        font-size: 360px;
+        color: rgba(255, 255, 255, 0.035);
+        top: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+        line-height: 1;
+      }
+
+      .cover-ornament {
+        color: var(--gold);
+        font-size: 1.9em;
+        letter-spacing: 12px;
+        margin-bottom: 24px;
+        opacity: 0.9;
+      }
+
+      .cover-book-title {
+        font-family: "Scheherazade New", serif;
+        font-size: 1.6em;
+        color: rgba(255, 255, 255, 0.68);
+        margin-bottom: 22px;
+      }
+
+      .cover-divider {
+        width: 150px;
+        height: 1px;
+        background: linear-gradient(
+          to left,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin: 0 auto 26px;
+      }
+
+      .cover-name {
+        font-family: "Scheherazade New", serif;
+        font-size: 2.6em;
+        font-weight: 700;
+        color: var(--gold-pale);
+        margin-bottom: 10px;
+        text-shadow: 0 3px 16px rgba(0, 0, 0, 0.45);
+      }
+
+      .cover-label {
+        font-size: 1.22em;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 30px;
+      }
+
+      .cover-dua {
+        font-family: "Scheherazade New", serif;
+        font-size: 1.55em;
+        color: var(--gold-2);
+        border-top: 1px solid rgba(176, 141, 87, 0.45);
+        padding-top: 22px;
+        font-style: italic;
+      }
+
+      /* ============================================================
+         BOOK SHEET (TRADITIONAL PAGE)
+      ============================================================ */
+      .book-shell {
+        width: 820px;
+        margin: 0 auto;
+        background: var(--paper);
+        border-radius: 0 0 16px 16px;
+        box-shadow:
+          0 26px 70px var(--paper-shadow),
+          0 2px 10px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* paper texture (subtle) */
+      .book-shell::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(
+            circle at 18% 22%,
+            rgba(176, 141, 87, 0.05) 0%,
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(26, 71, 42, 0.04) 0%,
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.012) 0px,
+            rgba(0, 0, 0, 0.012) 1px,
+            transparent 2px,
+            transparent 6px
+          );
+        pointer-events: none;
+        opacity: 0.65;
+      }
+
+      /* inner ornate border */
+      .book-shell::after {
+        content: "";
+        position: absolute;
+        inset: 20px;
+        border: 1px solid var(--paper-edge);
+        border-radius: 14px;
+        pointer-events: none;
+      }
+
+      .document-wrapper {
+        position: relative;
+        z-index: 1;
+        padding: 70px 78px 86px;
+        direction: rtl;
+        text-align: right;
+      }
+
+      /* ============================================================
+         INDEX (3 LEVELS: كتاب > باب > مسألة)
+      ============================================================ */
+      .index-container {
+        border: 1px solid rgba(176, 141, 87, 0.45);
+        border-top: 4px solid var(--gold);
+        padding: 40px 34px 30px;
+        margin-bottom: 64px;
+        background: linear-gradient(
+          180deg,
+          var(--paper-2) 0%,
+          var(--paper) 100%
+        );
+        border-radius: 12px;
+        position: relative;
+      }
+
+      .index-container::before {
+        content: "✦  فهرس المحتويات  ✦";
+        display: block;
+        text-align: center;
+        font-family: "Scheherazade New", serif;
+        font-size: 2em;
+        color: var(--gold);
+        margin-bottom: 26px;
+        padding-bottom: 14px;
+        border-bottom: 1px double rgba(176, 141, 87, 0.7);
+        letter-spacing: 2px;
+      }
+
+      .index-row {
+        display: flex;
+        align-items: baseline;
+        text-decoration: none;
+        color: var(--ink);
+        margin-bottom: 7px;
+        padding: 5px 8px;
+        border-radius: 6px;
+        transition: background 0.18s;
+      }
+      .index-row:hover {
+        background: rgba(176, 141, 87, 0.1);
+        color: var(--green-deep);
+      }
+
+      .index-title {
+        order: 1;
+        white-space: nowrap;
+      }
+      .index-dots {
+        order: 2;
+        flex-grow: 1;
+        border-bottom: 1px dashed rgba(176, 141, 87, 0.55);
+        margin: 0 10px;
+        height: 13px;
+      }
+      .index-page {
+        order: 3;
+        font-weight: 700;
+        min-width: 40px;
+        text-align: left;
+        color: var(--gold);
+      }
+
+      /* level: book */
+      .index-book {
+        font-weight: 800;
+        font-size: 1.18em;
+        color: var(--green-deep);
+        margin-top: 16px;
+        padding-top: 10px;
+        border-bottom: 1px solid rgba(176, 141, 87, 0.22);
+      }
+      .index-book .index-title::before {
+        content: "⬥ ";
+        color: var(--gold);
+      }
+
+      /* level: bab */
+      .index-bab {
+        font-weight: 700;
+        font-size: 1.08em;
+        color: var(--green-mid);
+        padding-right: 18px;
+        margin-top: 8px;
+      }
+      .index-bab .index-title::before {
+        content: "◈ ";
+        color: var(--gold);
+      }
+
+      /* level: masala */
+      .index-masala {
+        font-weight: 400;
+        font-size: 1.03em;
+        padding-right: 40px;
+        color: var(--ink);
+      }
+      .index-masala .index-title::before {
+        content: "• ";
+        color: rgba(26, 71, 42, 0.55);
+        font-weight: 700;
+      }
+
+      /* ============================================================
+         SECTION ORNAMENT
+      ============================================================ */
+      .ornament-header {
+        text-align: center;
+        margin: 0 0 54px;
+        color: var(--gold);
+        font-size: 1.4em;
+        letter-spacing: 10px;
+        opacity: 0.75;
+      }
+
+      /* ============================================================
+         TYPOGRAPHY (كتاب > باب > مسألة)
+      ============================================================ */
+      /* كتاب */
+      h1 {
+        text-align: center;
+        font-family: "Scheherazade New", serif;
+        font-size: 3.15em;
+        color: var(--green-deep);
+        margin: 58px 0 32px;
+        padding-bottom: 18px;
+        position: relative;
+      }
+
+      h1::before {
+        content: "❁";
+        display: block;
+        margin: 0 auto 6px;
+        color: rgba(176, 141, 87, 0.55);
+        font-size: 0.55em;
+        letter-spacing: 6px;
+      }
+
+      h1::after {
+        content: "";
+        display: block;
+        width: 170px;
+        height: 2px;
+        background: linear-gradient(
+          to left,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin: 14px auto 0;
+        border-radius: 2px;
+      }
+
+      h1 > span.h1-inner::before,
+      h1 > span.h1-inner::after {
+        content: "✦";
+        color: var(--gold);
+        font-size: 0.42em;
+        vertical-align: middle;
+        opacity: 0.8;
+      }
+      h1 > span.h1-inner::before {
+        margin-left: 14px;
+      }
+      h1 > span.h1-inner::after {
+        margin-right: 14px;
+      }
+
+      /* باب */
+      h2 {
+        font-family: "Scheherazade New", serif;
+        font-size: 2.1em;
+        color: var(--green-mid);
+        text-align: center;
+        margin: 44px 0 26px;
+        padding: 16px 22px;
+        background: linear-gradient(
+          to left,
+          rgba(26, 71, 42, 0.03),
+          rgba(26, 71, 42, 0.08),
+          rgba(26, 71, 42, 0.03)
+        );
+        border: 1px solid rgba(176, 141, 87, 0.3);
+        border-right: 7px solid var(--gold);
+        border-left: 7px solid var(--gold);
+        border-radius: 12px;
+      }
+
+      h2::before,
+      h2::after {
+        content: "❧";
+        color: var(--gold);
+        font-size: 0.72em;
+        margin: 0 10px;
+        opacity: 0.75;
+      }
+
+      /* عناوين شرح داخل المسألة */
+      h3 {
+        font-size: 1.58em;
+        color: var(--green-deep);
+        margin: 34px 0 14px;
+        padding: 10px 20px;
+        border-right: 6px solid var(--gold);
+        background: linear-gradient(
+          to left,
+          transparent,
+          rgba(176, 141, 87, 0.08)
+        );
+        border-radius: 0 10px 10px 0;
+      }
+
+      /* مسألة */
+      .metadata {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--meta-bg);
+        border: 1px solid rgba(176, 141, 87, 0.28);
+        border-right: 7px solid var(--green-mid);
+        color: #4b4338;
+        font-size: 0.96em;
+        font-weight: 800;
+        padding: 10px 16px;
+        border-radius: 0 14px 14px 0;
+        margin: 26px 0 14px;
+        width: fit-content;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      }
+      .metadata::before {
+        content: "✦";
+        color: var(--gold);
+        font-size: 1em;
+        flex-shrink: 0;
+      }
+
+      p {
+        font-size: 1.28em;
+        text-align: justify;
+        margin-bottom: 18px;
+        color: var(--ink-soft);
+        text-indent: 1em;
+      }
+
+      /* ---- Religious Block ---- */
+      .religious-block {
+        background: var(--hadith-bg);
+        border: 1px solid #c8e0c8;
+        border-top: 4px solid var(--green-mid);
+        padding: 28px 44px;
+        margin: 32px 0;
+        font-family: "Scheherazade New", serif;
+        font-size: 1.65em;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1.9;
+        color: var(--green-deep);
+        border-radius: 0 0 14px 14px;
+        box-shadow: 0 10px 22px rgba(26, 71, 42, 0.08);
+      }
+      .religious-block::before {
+        content: "﴿";
+        color: var(--gold);
+        font-size: 1.1em;
+        margin-left: 6px;
+      }
+      .religious-block::after {
+        content: "﴾";
+        color: var(--gold);
+        font-size: 1.1em;
+        margin-right: 6px;
+      }
+
+      /* ---- Quran Block ---- */
+      .quran-block {
+        background: #f1f8f1;
+        border: 1px solid #a8cfa8;
+        border-top: 5px solid var(--green-deep);
+        padding: 30px 48px;
+        margin: 32px 0;
+        font-family: "Scheherazade New", serif;
+        font-size: 1.72em;
+        font-weight: bold;
+        text-align: justify;
+        line-height: 2.15;
+        color: var(--green-dark);
+        border-radius: 0 0 14px 14px;
+        box-shadow: 0 10px 26px rgba(26, 71, 42, 0.1);
+        position: relative;
+      }
+      .quran-block::before {
+        content: "قال الله تعالى";
+        display: block;
+        font-size: 0.6em;
+        color: var(--gold);
+        text-align: center;
+        margin-bottom: 14px;
+        letter-spacing: 2px;
+        font-family: "Amiri", serif;
+      }
+      .quran-block::after {
+        content: none;
+      }
+
+      /* ---- Quote ---- */
+      .quote-container {
+        position: relative;
+        font-style: italic;
+        padding: 22px 30px 22px 22px;
+        margin: 28px 0;
+        background: #fdfbf7;
+        border-right: 6px solid var(--gold);
+        border-radius: 0 14px 14px 0;
+        font-size: 1.23em;
+        color: var(--ink-soft);
+        box-shadow: 0 10px 20px rgba(176, 141, 87, 0.12);
+      }
+      .quote-container::before {
+        content: "\201C";
+        position: absolute;
+        top: -12px;
+        right: 22px;
+        font-size: 4em;
+        color: var(--gold);
+        opacity: 0.23;
+        font-family: Georgia, serif;
+        line-height: 1;
+      }
+
+      /* ---- List ---- */
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+      li {
+        font-size: 1.28em;
+        margin-bottom: 12px;
+        padding: 10px 50px 10px 14px;
+        position: relative;
+        background: rgba(176, 141, 87, 0.06);
+        border-radius: 10px;
+        color: var(--ink-soft);
+        border-right: 3px solid rgba(176, 141, 87, 0.24);
+      }
+      li::before {
+        content: "◆";
+        color: var(--gold);
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.65em;
+      }
+
+      /* ---- Separator ---- */
+      .separator {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 52px 0;
+        color: var(--gold);
+      }
+      .separator::before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to left,
+          transparent,
+          rgba(176, 141, 87, 0.55)
+        );
+      }
+      .separator::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(176, 141, 87, 0.55)
+        );
+      }
+      .separator span {
+        font-size: 1.3em;
+        opacity: 0.75;
+        white-space: nowrap;
+      }
+
+      /* ---- Fiqh Note ---- */
+      .fiqh-note {
+        background: #fefaf2;
+        border: 1px solid rgba(176, 141, 87, 0.3);
+        border-right: 6px solid var(--gold-2);
+        border-radius: 0 14px 14px 0;
+        padding: 16px 22px;
+        margin: 18px 0;
+        font-size: 1.2em;
+        color: #555;
+        position: relative;
+      }
+      .fiqh-note::before {
+        content: "تنبيه فقهي";
+        display: block;
+        font-size: 0.78em;
+        font-weight: bold;
+        color: var(--gold);
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+      }
+
+      /* ============================================================
+         PRINT + PDF RENDERING HELPERS
+      ============================================================ */
+      p,
+      .religious-block,
+      .quran-block,
+      .quote-container,
+      ul,
+      li,
+      .metadata,
+      .separator,
+      .ornament-header,
+      h3,
+      .fiqh-note {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      h1 {
+        break-before: page;
+        page-break-before: always;
+      }
+      h1#intro {
+        break-before: avoid;
+        page-break-before: avoid;
+      }
+
+      .index-container {
+        break-after: page;
+        page-break-after: always;
+      }
+
+      @media print {
+        body {
+          background: #fff !important;
+          padding: 0 !important;
+        }
+        .topbar {
+          display: none !important;
+        }
+        .cover {
+          width: 100% !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+          padding: 50mm 25mm !important;
+          break-after: page;
+          page-break-after: always;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        .book-shell {
+          width: 100% !important;
+          margin: 0 !important;
+          border-radius: 0 !important;
+          box-shadow: none !important;
+        }
+        .book-shell::before,
+        .book-shell::after {
+          display: none !important;
+        }
+        .document-wrapper {
+          padding: 14mm 18mm !important;
+        }
+        @page {
+          size: A4 portrait;
+          margin: 0;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        a {
+          color: inherit !important;
+          text-decoration: none !important;
+        }
+      }
+
+      @media screen and (max-width: 900px) {
+        .topbar,
+        .cover,
+        .book-shell {
+          width: 100% !important;
+        }
+        .topbar {
+          padding: 0 12px;
+          margin-bottom: 10px;
+        }
+        .document-wrapper {
+          padding: 30px 5% 44px;
+        }
+        .index-dots {
+          display: none;
+        }
+        .index-row {
+          border-bottom: 1px solid rgba(176, 141, 87, 0.18);
+          padding: 6px 6px;
+        }
+        .index-title {
+          white-space: normal;
+        }
+        h1 {
+          font-size: 2.35em;
+        }
+        h2 {
+          font-size: 1.75em;
+        }
+        p {
+          font-size: 1.14em;
+        }
+        .religious-block,
+        .quran-block {
+          font-size: 1.4em;
+          padding: 20px 24px;
+        }
+        .index-masala {
+          padding-right: 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="topbar">
+      <button id="downloadPdfBtn" class="pdf-btn" type="button">
+        تحميل الكتاب PDF
+      </button>
+      <div class="hint">نسخة تراثية للطباعة — A4 — جودة عالية</div>
+    </div>
+
+    <!-- غلاف -->
+    <div class="cover">
+      <div class="cover-ornament">✦ ✦ ✦</div>
+      <div class="cover-book-title">
+        إضافات كتاب الفقه — الفهرس والنسخة الكاملة
+      </div>
+      <div class="cover-divider"></div>
+      <div class="cover-name">محمد علي أبوهلال</div>
+      <div class="cover-label">من إعداد الطالب</div>
+      <div class="cover-dua">🤲 نرجو منكم الدعاء له بظهر الغيب</div>
+    </div>
+
+    <!-- الكتاب (صفحات تراثية) -->
+    <div class="book-shell">
+      <div id="book-content" class="document-wrapper">
+        <!-- ==================== فهرس ==================== -->
+        <div class="index-container">
+          <a href="#intro" class="index-row index-book">
+            <span class="index-title">المقدمة</span
+            ><span class="index-dots"></span><span class="index-page">—</span>
+          </a>
+          <a href="#wasiya" class="index-row index-masala">
+            <span class="index-title">وصايا طلب العلم</span
+            ><span class="index-dots"></span><span class="index-page">—</span>
+          </a>
+
+          <a href="#tahara" class="index-row index-book">
+            <span class="index-title">كتاب الطهارة</span
+            ><span class="index-dots"></span><span class="index-page">22</span>
+          </a>
+
+          <a href="#bab1" class="index-row index-bab">
+            <span class="index-title">الباب الأول : احكام الطهارة والمياه</span
+            ><span class="index-dots"></span><span class="index-page">22</span>
+          </a>
+          <a href="#m1" class="index-row index-masala"
+            ><span class="index-title">المسألة الأولى</span
+            ><span class="index-dots"></span
+            ><span class="index-page">22</span></a
+          >
+          <a href="#m2" class="index-row index-masala"
+            ><span class="index-title">المسألة الثانية</span
+            ><span class="index-dots"></span
+            ><span class="index-page">23</span></a
+          >
+          <a href="#m3" class="index-row index-masala"
+            ><span class="index-title">المسألة الثالثة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">24</span></a
+          >
+          <a href="#m4" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">24</span></a
+          >
+          <a href="#m5" class="index-row index-masala"
+            ><span class="index-title">المسألة الخامسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">25</span></a
+          >
+          <a href="#m6" class="index-row index-masala"
+            ><span class="index-title">المسألة السادسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">25</span></a
+          >
+
+          <a href="#bab2-title" class="index-row index-bab">
+            <span class="index-title">الباب الثاني : في الآنية</span
+            ><span class="index-dots"></span><span class="index-page">27</span>
+          </a>
+          <a href="#m7" class="index-row index-masala"
+            ><span class="index-title">المسألة الأولى</span
+            ><span class="index-dots"></span
+            ><span class="index-page">27</span></a
+          >
+          <a href="#m8" class="index-row index-masala"
+            ><span class="index-title">المسألة الثانية</span
+            ><span class="index-dots"></span
+            ><span class="index-page">27</span></a
+          >
+          <a href="#m9" class="index-row index-masala"
+            ><span class="index-title">المسألة الثالثة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">28</span></a
+          >
+          <a href="#m10" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">28</span></a
+          >
+
+          <a href="#bab3-title" class="index-row index-bab">
+            <span class="index-title"
+              >الباب الثالث : في قضاء الحاجة وآدابها</span
+            ><span class="index-dots"></span><span class="index-page">29</span>
+          </a>
+          <a href="#m11" class="index-row index-masala"
+            ><span class="index-title">المسألة الأولى</span
+            ><span class="index-dots"></span
+            ><span class="index-page">29</span></a
+          >
+          <a href="#m12" class="index-row index-masala"
+            ><span class="index-title">المسألة الثانية</span
+            ><span class="index-dots"></span
+            ><span class="index-page">30</span></a
+          >
+          <a href="#m13" class="index-row index-masala"
+            ><span class="index-title">المسألة الثالثة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">30</span></a
+          >
+          <a href="#m14" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">31</span></a
+          >
+          <a href="#m15" class="index-row index-masala"
+            ><span class="index-title">المسألة الخامسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">32</span></a
+          >
+
+          <a href="#bab4-title" class="index-row index-bab">
+            <span class="index-title">الباب الرابع : السواك وسنن الفطرة</span
+            ><span class="index-dots"></span><span class="index-page">33</span>
+          </a>
+          <a href="#m16" class="index-row index-masala"
+            ><span class="index-title">المسألة الأولى</span
+            ><span class="index-dots"></span
+            ><span class="index-page">33</span></a
+          >
+          <a href="#m17" class="index-row index-masala"
+            ><span class="index-title">المسألة الثانية</span
+            ><span class="index-dots"></span
+            ><span class="index-page">34</span></a
+          >
+          <a href="#m18" class="index-row index-masala"
+            ><span class="index-title">المسألة الثالثة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">34</span></a
+          >
+          <a href="#m19" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">34</span></a
+          >
+          <a href="#m20" class="index-row index-masala"
+            ><span class="index-title">المسألة الخامسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">35</span></a
+          >
+
+          <a href="#bab5-title" class="index-row index-bab">
+            <span class="index-title">الباب الخامس : في الوضوء</span
+            ><span class="index-dots"></span><span class="index-page">37</span>
+          </a>
+          <a href="#m21" class="index-row index-masala"
+            ><span class="index-title">المسألة الأولى</span
+            ><span class="index-dots"></span
+            ><span class="index-page">37</span></a
+          >
+          <a href="#m22" class="index-row index-masala"
+            ><span class="index-title">المسألة الثانية</span
+            ><span class="index-dots"></span
+            ><span class="index-page">37</span></a
+          >
+          <a href="#m23" class="index-row index-masala"
+            ><span class="index-title">المسألة الثالثة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">38</span></a
+          >
+          <a href="#m24" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">39</span></a
+          >
+          <a href="#m25" class="index-row index-masala"
+            ><span class="index-title">المسألة الخامسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">40</span></a
+          >
+          <a href="#m26" class="index-row index-masala"
+            ><span class="index-title">المسألة السادسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">41</span></a
+          >
+          <a href="#m27" class="index-row index-masala"
+            ><span class="index-title">المسألة السابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">43</span></a
+          >
+          <a href="#m28" class="index-row index-masala"
+            ><span class="index-title">المسألة الثامنة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">43</span></a
+          >
+
+          <a href="#bab6-title" class="index-row index-bab">
+            <span class="index-title"
+              >الباب السادس : في المسح علي الخفين والعمامة والجبيرة</span
+            ><span class="index-dots"></span><span class="index-page">44</span>
+          </a>
+          <a href="#m29" class="index-row index-masala"
+            ><span class="index-title">المسألة الاولي</span
+            ><span class="index-dots"></span
+            ><span class="index-page">44</span></a
+          >
+          <a href="#m30" class="index-row index-masala"
+            ><span class="index-title">المسألة الثانية</span
+            ><span class="index-dots"></span
+            ><span class="index-page">45</span></a
+          >
+          <a href="#m31" class="index-row index-masala"
+            ><span class="index-title">المسألة الثالثة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">46</span></a
+          >
+          <a href="#m32" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">46</span></a
+          >
+          <a href="#m33" class="index-row index-masala"
+            ><span class="index-title">المسألة الرابعة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">46</span></a
+          >
+          <a href="#m34" class="index-row index-masala"
+            ><span class="index-title">المسألة الخامسة</span
+            ><span class="index-dots"></span
+            ><span class="index-page">46</span></a
+          >
+        </div>
+
+        <div class="ornament-header">— ✦ —</div>
+
+        <!-- ==================== المقدمة ==================== -->
+        <h1 id="intro"><span class="h1-inner">المقدمة</span></h1>
+        <h3 id="wasiya">وصايا طلب العلم :</h3>
+        <p>1- تصحيح النوايا</p>
+        <p>2- العزم علي العمل بأي مسألة نتعملها</p>
+        <div class="quote-container">
+          قال مالك بن دينار : إن العالم إذا لم يعمل بعلمه زلّت موعظته عن القلوب
+          كما يزل القطر عن الصفا
+        </div>
+
+        <div class="separator"><span>❁</span></div>
+
+        <!-- ==================== كتاب الطهارة ==================== -->
+        <h1 id="tahara"><span class="h1-inner">كتاب الطهارة</span></h1>
+        <h2 id="bab1">الباب الأول : احكام الطهارة والمياه</h2>
+
+        <div id="m1" class="metadata">
+          المسالة الاولي – الفيديو الأول - صفحة 22
+        </div>
+        <p>
+          ما هو الخبث : عين محسوسة مستقذره تمنع من الصلاة ونحوها مثل البول
+          والغائط
+        </p>
+        <p>لماذا لم يقل رفع الحدث وإزالة الخبث وهل في فرق بين زوال وإزالة؟</p>
+        <p>كلمة رفع تشمع النية</p>
+        <p>
+          كلمة زوال لا يلزم النية ، فلو قال زالت النجاسة بدون نية فلا شيء عليه ،
+          وكلمة إزالة فيها نية
+        </p>
+
+        <h3>النجاسات نوعان:</h3>
+        <p>نجاسة متوسطه : مثل البول والغائط ويكفي فيها المكاثرة بالماء</p>
+        <p>نجاسة مغلظة : لعاب الكلب اذا الكلب ولغ في الإناء</p>
+        <div class="religious-block">
+          عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ: طُهُورُ إِنَاءِ
+          أَحَدِكُمْ إِذَا وَلَغَ فِيهِ الْكَلْبُ أَنْ يَغْسِلَهُ سَبْعَ
+          مَرَّاتٍ, أُولَاهُنَّ بِالتُّرَابِ
+        </div>
+
+        <p>نجاسة مخففة :</p>
+        <ul>
+          <li>
+            1- النطح وهو الرش بالماء مثل المذي وبول الصبي الذي لم يكبر كفاية
+            ليأكل الطعام
+          </li>
+          <li>2- المسح مثل نجاسة في النعل</li>
+        </ul>
+
+        <div id="m2" class="metadata">
+          المسالة الثانية – الفيديو الأول - صفحة 23
+        </div>
+        <p>
+          - زوال الخبث لا يلزم ماء فالعبرة هو إزالة النجاسة سواء ماء او غيره من
+          الوسائل لكن رفع الحدث فلازم ماء طهور فقط او تيمم
+        </p>
+
+        <div class="separator"><span>❁</span></div>
+
+        <div id="m3" class="metadata">
+          المسالة الثالثة – الفيديو الثاني الدقيقة 10 – صفحة 24
+        </div>
+        <p>ما هي القلة : هي حاوية كانت عند العرب بمقدار 160 لتر سعة .</p>
+        <p>ما هو حد الكثير والقليل ؟</p>
+        <ul>
+          <li>
+            الكثير ما زاد عن القلتين والقليل ما قل عن القلتين يعني قرابة ال 300
+            لتر سعة .
+          </li>
+        </ul>
+
+        <h3>تقسيم الماء المنخلط :</h3>
+        <p>
+          1- ماء كثير وقعت فيه نجاثة لم تغير شيء من اوصافه كلون او طعم او رائحة
+          ،، فهذا الماء طهور بالاتفاق يرفع الحدث ويزيل الخبث
+        </p>
+        <p>
+          2- ماء كثير وقعت فيه نجاثه غيرت في شيء من اوصافه ،، فهذا بالاتفاق ان
+          الماء نجس
+        </p>
+        <p>
+          3- ماء قليل وقعت فيه نجاسة غيرت من اوصافه فهذا بالاتفاق ان الماء نجس
+        </p>
+        <p>4- ماء قليل وقعت فيه نجاسه لم تغير شيء من اوصافه وفيها قولين ....</p>
+        <p>
+          • الأول : ان الماء نجس وذلك بمفهوم المخالفة ، لحديث رسول الله ﷺ : "إذا
+          بلغ الماء قلتين لم يحمل الخبث" فبالتالي اذا لم يبلغ الماء قلتين فانه
+          يحمل الخبث
+        </p>
+        <p>
+          • الثاني : وهو الراي الاقوي والله اعلم ان الماء طهور لانه لم يتغير منه
+          شيء ، والدليل حديث رسول الله ﷺ :
+        </p>
+
+        <div class="religious-block">
+          (حديثُ بئرِ بُضاعَةَ : حيثُ توضَّأ رسولُ اللهِ صلَّى اللهُ تعالى عليه
+          وسلم منها فقيلَ له : أنتوضأُ منها وهي بئرٌ تلقَى فيها الحِيضُ ولحومُ
+          الكلابِ والنتَنُ ؟ فقال : الماءُ طهورٌ لا يُنجِّسهُ شيءٌ )
+        </div>
+        <p>
+          - وان حديث القلتين فهو علي الغالب بمعني ان اذا بلغ الماء قلتين غالبا
+          لم يحمل الخبث وهذا الراي هو الاقوي لان منطوق الحديث مقدم علي مفهوم
+          المخالفة .
+        </p>
+
+        <div id="m4" class="metadata">
+          المسالة الرابعة – الفيديو التاني – الدقيقه 17 – صفحة 24
+        </div>
+        <p>
+          الماء اذا خالطة طاهر فانه يفقد طهوره بشرط ان يكون التغير ليس بيسير
+          (تغيرت رائحته او طعمه او لونه ) مثل ماء وقع فيه صابونه (مش ماء مخلوط
+          بالصابون بالكامل) او وقع نقطتين عصير او ما شابة ذلك. او ان يكون التغير
+          بما يمكن الاحتراز منه (مثل ماء نهر يخالطه طحالب او فيها ضفادع) فالماء
+          هنا طهور حتي لو تغير شيء من اوصافه لان ده شيء ليس له حل فلا يمكن
+          الاحتراز منه
+        </p>
+
+        <div id="m5" class="metadata">
+          المسالة الخامسة – الفيديو التاني – الدقيقه 24 – صفحة 25
+        </div>
+        <p>هذه المسالة صحيحه في الكتاب ولا زياده عليها الحمد لله</p>
+
+        <div id="m6" class="metadata">
+          المسالة السادسة – الفيديو التاني – صفحة 25
+        </div>
+        <p>
+          هذه المسالة صحيحه في الكتاب ولا زياده عليها الحمد لله لكن مسالة سؤر
+          الحيوانات غير مأكولة الحلم تتبع مسالة تقسم الماء المنخلط ومدي تغير
+          الماء كما ذكر سابقا
+        </p>
+        <p>
+          والقطة غير مأكولة اللحم ولاكنها طاهره وسؤرها طاهر : والنجس إنما هو
+          بولها روثها وما سال من دمها، لما ثبت في الموطأ والسنن أن أبا قتادة دخل
+          على كبشة بنت كعب بن مالك وهي زوجة ابنه: فسكبت له وضوءاً فجاءت هرة
+          لتشرب منه فأصغى لها الإناء حتى شربت، قالت: كبشة فرآني أنظر إليه فقال:
+          أتعجبين يا ابنة أخي، فقلت: نعم، فقال: إن رسول الله صلى الله عليه وسلم
+          قال:
+        </p>
+        <div class="religious-block">
+          ( إنها ليست بنجس، إنما هي من الطوافين أو الطوافات )
+        </div>
+        <p>وبعض العلماء الحقوا الحمار بالهرة .</p>
+
+        <div class="separator"><span>❁</span></div>
+
+        <!-- ==================== الباب الثاني ==================== -->
+        <h1 id="bab2-title">
+          <span class="h1-inner">الباب الثاني : في الآنية</span>
+        </h1>
+
+        <div id="m7" class="metadata">
+          المسالة الاولي - الفيديو التاني – صفحة 27
+        </div>
+        <p>
+          ونخالف الكتاب في انه جاز استعمال آنية الذهب والفضة في غير الاكل مثل
+          (زينة او اناء اتوضأ منه وهكذا) وهذا مخالف علي قول الائمة الأربعة ،
+          فأنه غير جائز
+        </p>
+
+        <div id="m8" class="metadata">
+          المسالة الثانية - الفيديو التاني – صفحة 27
+        </div>
+        <p>هذه المسالة صحيحه في الكتاب ولا زياده عليها الحمد لله</p>
+
+        <div id="m9" class="metadata">
+          المسالة الثالثة - الفيديو التاني – صفحة 28
+        </div>
+        <p>
+          الجمع بين الدليلين ، اذا كان الكافر يغلب عليه انه يحترز من النجاسات
+          فيجوز ان تاكل وتشرب في آنيته ، اما اذا كان الكافر ان تعلم عنه انه ال
+          يحترز من النجاسات كاكل الخنزير وشرب الخمر فلا تستعملها الا ان لا تجد
+          غيرها فاغسلها ثم كلوا فيها .
+        </p>
+
+        <div id="m10" class="metadata">
+          المسالة الرابعة - الفيديو التاني – صفحة 28
+        </div>
+        <p>
+          جلد ولحم الميتة سواء كان مأكول اللحم او غير مأكول اللحم فهو نجس ، اما
+          اذا دبغ الجلد فهناك قولين :
+        </p>
+        <ul>
+          <li>الأول ان اذا دبغ جلد مأكول اللحم او غير مأكول اللحم فانه يطهر</li>
+          <li>
+            الثاني ان اذا دبغ جلد مأك��ل اللحم فانه طاهر وغير مأكول اللحم فأنه
+            نجس وهو الاحوط هذا ما اختاره الكتاب
+          </li>
+        </ul>
+        <p>هذه المسألة فيها خلاف.</p>
+
+        <div class="separator"><span>❁</span></div>
+
+        <!-- ==================== الباب الثالث ==================== -->
+        <h1 id="bab3-title">
+          <span class="h1-inner">الباب الثالث : في قضاء الحاجة وآدابها</span>
+        </h1>
+
+        <div id="m11" class="metadata">
+          المسالة الاولي - الفيديو الثالث – الدقيقة 1.30 - صفحة 29
+        </div>
+        <p>
+          للتوضيح ان الاستجمار يجزئ عن الماء يعني ممكن يكون في ماء وانا استجمر
+          عادي ،، لكن الماء تطهر افضل وكما قال في الكتاب الجمع بينهم افضل .
+        </p>
+        <p>
+          الكتاب يقول في الاستجمار انه لايجوز ان يكون اقل من ثلاث مسحات يعني
+          ثلاث احجارلقول النبي ﷺ :
+        </p>
+        <div class="religious-block">
+          إذا ذَهبَ أحدُكم إلى الغائطِ فليذهَب معَه بثلاثةِ أحجارٍ يستطيبُ
+          بِهنَّ فإنَّها تُجزئُ عنه
+        </div>
+        <p>
+          راي الشيخ لا يجب ان يكون ثلاث احجار ،، ممكن حجر كبير باكتر من وجه
+          ويمسح ثلاث مرات وهذا يجزئ فالعبره الطهاره وان يكون كل وجه طاهر لا
+          يمسحه نجس
+        </p>
+        <p>وحديث:</p>
+        <div class="religious-block">
+          قِيلَ له: قدْ عَلَّمَكُمْ نَبِيُّكُمْ صَلَّى اللَّهُ عليه وسلَّمَ
+          كُلَّ شيءٍ حتَّى الخِراءَةَ قالَ: فقالَ: أجَلْ لقَدْ نَهانا أنْ
+          نَسْتَقْبِلَ القبْلَةَ لِغائِطٍ، أوْ بَوْلٍ، أوْ أنْ نَسْتَنْجِيَ
+          باليَمِينِ، أوْ أنْ نَسْتَنْجِيَ بأَقَلَّ مِن ثَلاثَةِ أحْجارٍ، أوْ
+          أنْ نَسْتَنْجِيَ برَجِيعٍ، أوْ بعَظْمٍ.
+        </div>
+        <p>الرجيع هو روث الحيوان اذا نشف فصار كالحجر حتي لو مأكول اللحم</p>
+
+        <div id="m12" class="metadata">
+          المسالة الثانية – الفيديو الثالث – الدقيقة 12 - صفحة 30
+        </div>
+        <p>هناك قولين</p>
+        <p>
+          القول الأول هو أبو أيوب الانصاري وهو راوي الحديث ان استقبال القبلة
+          استدبراها مكروه سواء كان في حائل او لا
+        </p>
+        <p>
+          القول الثاني وهو ابن عمر ان استقبال القبلة استدبراها حرام لو في الفضاء
+          جائز لو هناك حائل.
+        </p>
+        <p>الشيخ رجح القول الأول لأنه راوي الحديث نفسه .</p>
+
+        <div id="m13" class="metadata">
+          المسألة الثالثة – الفيديو الثالث – الدقيقة 19 - صفحة 30
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m14" class="metadata">
+          المسألة الرابعة – الفيديو الثالث – الدقيقة 27 - صفحة 31
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m15" class="metadata">
+          المسألة الخامسة – الفيديو الثالث – الدقيقة 35 - صفحة 32
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div class="separator"><span>❁</span></div>
+
+        <!-- ==================== الباب الرابع ==================== -->
+        <h1 id="bab4-title">
+          <span class="h1-inner">الباب الرابع : السواك وسنن الفطرة</span>
+        </h1>
+
+        <div id="m16" class="metadata">
+          المسألة الأولى – الفيديو الثالث – الدقيقة 40 - صفحة 33
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m17" class="metadata">
+          المسألة الثانية – الفيديو الثالث – الدقيقة 45 - صفحة 34
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m18" class="metadata">
+          المسألة الثالثة – الفيديو الثالث – الدقيقة 48.5 - صفحة 34
+        </div>
+        <p>
+          صحيحة في الكتاب والحمد لله ، لكن حديث التسوك بالأصبع هذا حديث ضعيف
+          وبعض العلماء قالو عند الحاجه فقططط ، يعني انت ولا معاك سواك ولا فرشاة
+          فتسوك بإصبعك
+        </p>
+
+        <div id="m19" class="metadata">
+          المسألة الرابعة – الفيديو الثالث – الدقيقة 51.30 - صفحة 34
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m20" class="metadata">
+          المسألة الخامسة – الفيديو الثالث – الدقيقة 52.30 - صفحة 35
+        </div>
+        <p>صحيحة ف�� الكتاب والحمد لله</p>
+
+        <div class="separator"><span>❁</span></div>
+
+        <!-- ==================== الباب الخامس ==================== -->
+        <h1 id="bab5-title">
+          <span class="h1-inner">الباب الخامس : في الوضوء</span>
+        </h1>
+
+        <div id="m21" class="metadata">
+          المسألة الأولى – الفيديو الرابع – الدقيقة الأولى - صفحة 37
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m22" class="metadata">
+          المسألة الثانية – الفيديو الرابع – الدقيقة السابعة - صفحة 37
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m23" class="metadata">
+          المسألة الثالثة – الفيديو الرابع – الدقيقة 21 - صفحة 38
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m24" class="metadata">
+          المسألة الرابعة – الفيديو الرابع – الدقيقة 35 - صفحة 39
+        </div>
+
+        <div class="quran-block">
+          يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا قُمْتُمْ إِلَى الصَّلَاةِ
+          فَاغْسِلُوا وُجُوهَكُمْ وَأَيْدِيَكُمْ إِلَى الْمَرَافِقِ وَامْسَحُوا
+          بِرُءُوسِكُمْ وَأَرْجُلَكُمْ إِلَى الْكَعْبَيْنِ ۚ وَإِن كُنتُمْ
+          جُنُبًا فَاطَّهَّرُوا ۚ وَإِن كُنتُم مَّرْضَىٰ أَوْ عَلَىٰ سَفَرٍ أَوْ
+          جَاءَ أَحَدٌ مِّنكُم مِّنَ الْغَائِطِ أَوْ لَامَسْتُمُ النِّسَاءَ
+          فَلَمْ تَجِدُوا مَاءً فَتَيَمَّمُوا صَعِيدًا طَيِّبًا فَامْسَحُوا
+          بِوُجُوهِكُمْ وَأَيْدِيكُم مِّنْهُ ۚ مَا يُرِيدُ اللَّهُ لِيَجْعَلَ
+          عَلَيْكُم مِّنْ حَرَجٍ وَلَٰكِن يُرِيدُ لِيُطَهِّرَكُمْ وَلِيُتِمَّ
+          نِعْمَتَهُ عَلَيْكُمْ لَعَلَّكُمْ تَشْكُرُونَ
+        </div>
+
+        <p>
+          فهذه الآية فيها تمام الوضوء ،، لان النبي ﷺ في حديث المسيء في صلاته في
+          بعض روايات الحديث قال له الرسول توضئ كما امرك الله ،، فده دليل ان
+          الآية فيها كل شيء واجب في الوضوء وما زاد عن الآية من الرسول فذلك علي
+          الاستحباب
+        </p>
+
+        <h3>مسألة المضمضة والاستنشاق :</h3>
+        <p>
+          المضمضة والاستنشاق ليسوا من الوجه ولم يذكروا في الآية ،، وبذلك فإن
+          المضمضة والاستنشاق علي الاستحباب ليس علي الوجوب
+        </p>
+        <p>
+          والصحابة كان يصفون وضوء النبي ﷺ قالوا قام مضمضة واستنشق ثم غسل وجهه
+          فهذا تفريق بين الوجه وبين المضمضة والاستنشاق
+        </p>
+
+        <div class="fiqh-note">
+          ذكر الإمام الشافعي في كتابه "الأم" أنه لم يعلم خلافاً في أن من ترك
+          المضمضة والاستنشاق في وضوئه — سواء عمداً أو نسياناً — وصلى، فإن وضوءه
+          صحيح ولا إعادة عليه. وهذا ما رجحه المهندس علاء أنهما على الاستحباب.
+        </div>
+
+        <h3>مسألة غسل اليدين إلى المرفقين :</h3>
+        <p>
+          كلمة "إلى المرافق" يعني مع المرفقين أي يصلهما الماء ،، وهذا مما ذكر من
+          تطبيق النبي ﷺ في الآية الكريمة.
+        </p>
+
+        <h3>مسألة مسح الرأس :</h3>
+        <p>وفيها خلاف باختلاف فهم الآية ﴿ وَامْسَحُوا بِرُءُوسِكُمْ ﴾</p>
+        <ul>
+          <li>رأي الكتاب : مسح الرأس كله مع الأذنين وجوباً</li>
+          <li>
+            القول الثاني : يجوز مسح بعض الرأس ، ومن قال بهذا القول قال إن مسح
+            الأذنين مستحب لا يجب
+          </li>
+        </ul>
+
+        <div class="fiqh-note">
+          شرح المهندس : عندما نقول "مررت بمحمد" فهل عديت على محمد كله أم بعضه؟
+          أو "طفت بالبيت"، فطفت به كله أم حوله؟ فهذه باء الإلصاق وتدل على احتواء
+          كل الشيء. والباء الأخرى هي باء التبعيض. فالباء في الآية: الحنابلة
+          قالوا إنها باء إلصاق، والشافعية قالوا إنها باء تبعيض. والأحوط أن تمسح
+          رأسك كله، ولكن لو مسحت بعض الرأس فوضوؤك صحيح على راي الشافعية والله
+          تعالى أعلم.
+        </div>
+
+        <h3>مسألة الأذنين :</h3>
+        <div class="religious-block">الأُذنانِ من الرأسِ</div>
+        <p>أي نفعل بهما مثل الرأس وهو أن نمسحهما ولا نغسلهما كالوجه.</p>
+        <ul>
+          <li>الحنابلة : مسح الرأس والأذنين واجب</li>
+          <li>الشافعية : مسح جزء من الرأس والأذنين مستحب</li>
+          <li>
+            المهندس اختار رأي الشافعية والأولى أن نحتاط ونمسح الرأس والأذنين
+          </li>
+        </ul>
+
+        <h3>مسألة غسل الرجلين إلى الكعبين :</h3>
+        <p>
+          ﴿ وَأَرْجُلَكُمْ إِلَى الْكَعْبَيْنِ ﴾ — الكعبان معنا في الغسل مثل
+          المرفقين ، والكعبان هما العظمتان البارزتان المتصلتان ببعضهما.
+        </p>
+
+        <h3>مسألة الترتيب والموالاة :</h3>
+        <ul>
+          <li>
+            الترتيب واجب كما ذكر في الكتاب ، وإن النبي ﷺ لم يخالف هذا الترتيب قط
+          </li>
+          <li>
+            الموالاة واجبة ، والتأخير يرجع للعرف — بأن يُنظر هل الفاصل طويل أم
+            قصير
+          </li>
+        </ul>
+
+        <div id="m25" class="metadata">
+          المسألة الخامسة – الفيديو الرابع – الساعة الأولى من الفيديو - صفحة 40
+        </div>
+        <p>السنن هو ما زاد عن الآية وهو مستحب</p>
+
+        <h3>دعاء ما بعد الوضوء :</h3>
+        <p>يستحب بعد الفراغ من الوضوء أن تقول:</p>
+        <div class="religious-block">
+          أشهدُ أن لا إلهَ إلَّا اللهُ وحدَه لا شريكَ له، وأشهدُ أنَّ مُحمَّدًا
+          عبدُه ورسولُه، اللَّهمَّ اجعَلْني مِن التَّوَّابِينَ، واجعَلْني مِن
+          المُتطهِّرِينَ
+        </div>
+
+        <div id="m26" class="metadata">
+          المسألة السادسة – الفيديو الخامس – الدقيقة الاولي من الفيديو - صفحة 41
+        </div>
+
+        <p>- الخارج من السبيلين</p>
+        <ul>
+          <li>1- البول الغائط</li>
+          <li>
+            2- المذي: سائل رقيق شفاف يخرج عند الشهوة وعادةََ لا تشعر به ، وهو
+            نجس ينقض الوضوء يلزم الوضوء وليس الغسل (يستنجي ويغسل فرجك) ولو أصاب
+            الثياب يكفي فيه النطح وهو الرش عليه بالماء (وهناك خلاف علي غسل
+            الخصيتين علي الوجوب ان اما الاستحباب) والراجح والله تعالي اعلم هي
+            علي الاستحباب كما قال الشيخ علاء
+          </li>
+          <li>
+            3- الودي: سائل سخين غليظ يميل الي البياض (يشبه المني قليلا) يخرج من
+            غير شهوه ولا تدفق وعادة يخرج بعد البول او الغائط ومش بيحصل لكل الناس
+            بل بعضهم وممكن لمرض وحكمه زي المذي بالضبط
+          </li>
+          <li>
+            4- المني: سائل ابيض ثقيل يخرج عن الجماع او الاحتلام او الاستمناء
+            (المحرم) ، يخرج بتدفق مع شهوه يعقبه فتور في الجسد ، ويجب الغسل منه
+          </li>
+          <li>5- الريح: لا يلزم استنجاء ولكن يلزم الوضوء</li>
+          <li>
+            6- دم الاستحاضة : وهذا ما زاد عن دم الحيض بعد (15 يوم) يوجب الغسل
+            وسنذكره بالتفصيل فيما بعد
+          </li>
+          <li>
+            7- الافرازات التي تخرج من فرج المراءة: فهذه الافرازات علي الراجح
+            انها طاهره ، لا يلزم الغسل ولا غسل الفرج ولا الثوب فنقول الرطوبة دي
+            زي الريح بالضبط ، لكن يوجب الوضوء
+          </li>
+        </ul>
+
+        <p>
+          - لو المراءة اختلط عليها الامر هل هذا مذي ولا مني ولا رطوبة ، فلو ان
+          الافرازات خرجت وانت مش موضع شهوة (جماع او استثاره) انت في الوضع
+          الطبيعي يبقي دي الرطوبة الطبيعية التي تخرج من المراءة
+        </p>
+        <p>- لو الافراز كان متزامن مع شهوة يبقي غالب الظن ده مذي</p>
+        <p>
+          - لو الافراز كان متزامن مع استثارة كامله كجماع يبقي غالب الظن ان ده
+          مني
+        </p>
+
+        <h3>مسالة النسيان انا متوضئ ولا لا ؟</h3>
+        <p>
+          انا دخلت توضأت وبعدين طلعت بعدها بقول لنفسي هل انا أحدثت ولا لا ، اللي
+          انا متأكد منه اني انا توضأت وشاكك انك أحدثت ، فانت متأكد ،، قاعده
+          --&lt; اليقين لا يزول بالشك
+        </p>
+        <p>
+          طب لو العكس لو انا دخلت الحمام ولم اتوضأ وطلعت وبعدها قولت لنفسي انا
+          متوضئ ولا لا ، اللي انا متأكد منه اني دخلت الحمام بس مش فاكر توضأت
+          بعده ولا لا ، يبقي انت مش متوضئ
+        </p>
+
+        <h3>- خروج النجاسة من بقية الجسد :</h3>
+        <p>
+          مثل خروج البول والغائط من غير السبيلين فهذا ينقض والاحوط الوضوء مع كل
+          صلاة
+        </p>
+        <p>الدم والقيء لا ينقض الوضوء لكن هذه نجاسة تزال مثل أي نجاسة</p>
+
+        <h3>- مس فرج الآدمي:</h3>
+        <p>* الجمع بين الحديثين :</p>
+        <ul>
+          <li>
+            1- حديث طلق بن علي الحنفي: أنَّ النبيَّ – صلَّى اللهُ عليه وسلَّم –
+            سُئِلَ عنه ? فقال : هل هو إلا بَضْعَةٌ منكَ ? !
+          </li>
+          <li>2- وحديث بسرة بنت صفوان : مَن مسَّ ذَكَرَهُ فليتوضَّأ</li>
+        </ul>
+        <p>فممكن:</p>
+        <p>- مس فرجة بشهوة فليتوضأ ومن مسه علي انه بضعة منه فليس عليه شيء</p>
+        <p>
+          - ممكن الجمع بشكل آخر ان حديث طلق بن علي الحنفي نفي الوجوب الذي يحمله
+          حديث بسرة بنت صفوان
+        </p>
+        <p>والمهندس علاء رجح القول الأول علي أساس الشهوة</p>
+
+        <h3>
+          - مس المراءة ينقض الوضوء ولا لا سواء من يجوز مسها (من محارمك) او ليست
+          من محارمك؟
+        </h3>
+        <p>هناك مذاهب:</p>
+        <ul>
+          <li>الأول ان مس أي مراءة يلزم الوضوء</li>
+          <li>
+            الثاني مس المراءة من محارمك لا يلزم الوضوء ومس المراءة من غير محارمك
+            لا يلزك الوضوء
+          </li>
+          <li>
+            الثالث وهو ما رجحه الشيخ : مس المراءة بشهوة يلزم الوضوء ومس المراءة
+            من غير شهوة لا يلزم الوضوء
+          </li>
+        </ul>
+
+        <div id="m27" class="metadata">
+          المسألة السابعة – الفيديو الخامس – الدقيقة 37:30 من الفيديو - صفحة 43
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m28" class="metadata">
+          المسألة الثامنة – الفيديو الخامس – الدقيقة 41 من الفيديو - صفحة 43
+        </div>
+        <p>نزود ان يستحب الوضوء بعد حمل الميت</p>
+
+        <div class="separator"><span>❁</span></div>
+
+        <h1 id="bab6-title">
+          <span class="h1-inner"
+            >الباب السادس : في المسح علي الخفين والعمامة والجبيرة</span
+          >
+        </h1>
+
+        <div id="m29" class="metadata">
+          المسألة الاولي – الفيديو الخامس – الدقيقة 41 من الفيديو - صفحة 44
+        </div>
+        <p>
+          يجب ان يكون الجورب سميك بمعني لو في ضوء الغرفه العادي وتري جلدك فهذا
+          لا يجوز المسح عليه
+        </p>
+
+        <div id="m30" class="metadata">
+          المسألة الثانية – الفيديو الخامس – الساعه الاولي ودقيقتين - صفحة 45
+        </div>
+        <p>
+          - محل الفرض تعني ان يكون الجورب لحد الكعبين وهما العظمتين البارزتين من
+          الرجل وتعرف في مصر ببز الرجل ، فلو الجروب كان اقل من ذلك فلا يجوز
+          المسح عليه
+        </p>
+        <p>- المسح يكون في الحدث الأصغر</p>
+
+        <div id="m31" class="metadata">
+          المسألة الثالثة – الفيديو الخامس – الساعة الاولي و7 دقائق - صفحة 46
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m32" class="metadata">
+          المسألة الرابعة – الفيديو الخامس – الساعة الاولي 8 دقائق - صفحة 46
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m33" class="metadata">
+          المسألة الرابعة – الفيديو الخامس – الساعة الاولي و9 دقائق - صفحة 46
+        </div>
+        <p>صحيحة في الكتاب والحمد لله</p>
+
+        <div id="m34" class="metadata">
+          المسألة الخامسة – الفيديو الخامس – الساعة الاولي و9 دقائق - صفحة 46
+        </div>
+        <p>
+          - اذا كنت مرتدي الجروب علي طهارة ثم مسحت عليه فاذا ظهر بعض محل الفرض
+          فيما بعد (خلعت الجورب او نزل من رجلي ) بطل المسح لكن وضوؤك صحيح كما هو
+          لكن لا يجوز المسح مره اخري حتي ان تتوضأ ثانيا ثم تلبس الجروب علي طاهرة
+          كامله
+        </p>
+        <p>
+          - لكن اذا كنت مرتدي الجورب ولم امسح عليه ثم خلعته او ظهر شيء من محل
+          الفرض فيجوز ان ارتديه ثم امسح عادي ، وذلك لأنك لم تٌحدث (تنقض وضوءك)
+          كأنك تلبسه علي الطاهرة الاصلية
+        </p>
+        <p>
+          - مدة المسح تبدا من اول تمسح فيها مش من اول ما تلبس الجروب ولفهم المدة
+          فلو انت مسحت في ظهر اليوم فيمكن المسح في كل الصلوات التالية حتي ظهر
+          غدا فلا يجوز المسح فيه (24 ساعة فقط)
+        </p>
+
+        <div class="separator" style="margin-top: 60px">
+          <span>✦ نهاية ✦</span>
+        </div>
+      </div>
+      <!-- end #book-content -->
+    </div>
+
+  <!-- ✅ ضع سكريبت التصدير الجديد هنا -->
+  <script>
+    (function () {
+      const btn = document.getElementById("downloadPdfBtn");
+      const book = document.getElementById("book-content");
+
+      function setBusy(isBusy) {
+        btn.disabled = isBusy;
+        btn.textContent = isBusy ? "جاري تجهيز PDF..." : "تحميل الكتاب PDF";
+      }
+
+      function buildHiddenExportContainer(nodeToClone) {
+        const holder = document.createElement("div");
+        holder.id = "pdf-export-holder";
+        holder.style.position = "fixed";
+        holder.style.left = "-99999px";
+        holder.style.top = "0";
+        holder.style.width = "820px";
+        holder.style.background = "#fff";
+        holder.style.zIndex = "-1";
+        holder.style.pointerEvents = "none";
+
+        const clone = nodeToClone.cloneNode(true);
+        holder.appendChild(clone);
+        document.body.appendChild(holder);
+
+        return { holder, clone };
+      }
+
+      async function exportPDF() {
+        try {
+          if (!window.html2pdf) {
+            alert(
+              "مكتبة إنشاء PDF لم يتم تحميلها. لو فاتح الملف file:// افتحه من سيرفر مثل Live Server."
+            );
+            return;
+          }
+          if (!book) {
+            alert("عنصر الكتاب #book-content غير موجود.");
+            return;
+          }
+
+          setBusy(true);
+
+          const { holder, clone } = buildHiddenExportContainer(book);
+
+          const opt = {
+            filename: "كتاب-الفقه.pdf",
+            margin: [0, 0, 0, 0],
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: {
+              scale: 2,
+              useCORS: true,
+              allowTaint: true,
+              backgroundColor: "#ffffff",
+              logging: false,
+              removeContainer: true,
+            },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            pagebreak: {
+              mode: ["css", "legacy"],
+              before: ["h1"],
+              after: [".index-container"],
+              avoid: [
+                ".metadata",
+                ".religious-block",
+                ".quran-block",
+                ".quote-container",
+                "ul",
+                "li",
+                ".fiqh-note",
+                "h3",
+              ],
+            },
+          };
+
+          window.scrollTo(0, 0);
+
+          await html2pdf().set(opt).from(clone).save();
+
+          holder.remove();
+        } catch (e) {
+          console.error(e);
+          alert("حصل خطأ أثناء إنشاء الـ PDF. افتح Console وشوف الخطأ.");
+        } finally {
+          setBusy(false);
+        }
+      }
+
+      btn.addEventListener("click", exportPDF);
+    })();
+  </script>
+
+</body>
+</html>
+  </body>
+</html>
