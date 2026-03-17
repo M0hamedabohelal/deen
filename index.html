@@ -767,47 +767,101 @@
         }
       }
 
-      @media screen and (max-width: 900px) {
-        .topbar,
-        .cover,
-        .book-shell {
-          width: 100% !important;
-        }
-        .topbar {
-          padding: 0 12px;
-          margin-bottom: 10px;
-        }
-        .document-wrapper {
-          padding: 30px 5% 44px;
-        }
-        .index-dots {
-          display: none;
-        }
-        .index-row {
-          border-bottom: 1px solid rgba(176, 141, 87, 0.18);
-          padding: 6px 6px;
-        }
-        .index-title {
-          white-space: normal;
-        }
-        h1 {
-          font-size: 2.35em;
-        }
-        h2 {
-          font-size: 1.75em;
-        }
-        p {
-          font-size: 1.14em;
-        }
-        .religious-block,
-        .quran-block {
-          font-size: 1.4em;
-          padding: 20px 24px;
-        }
-        .index-masala {
-          padding-right: 18px;
-        }
-      }
+      /* ============================================================
+   RESPONSIVE (Laptop + Tablet + Mobile) - KEEP CONTENT
+============================================================ */
+
+body { overflow-x: hidden; }
+
+@media screen and (max-width: 1024px) {
+  body { padding: 22px 0 55px; }
+
+  .topbar, .cover, .book-shell {
+    width: calc(100% - 28px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .document-wrapper { padding: 46px 40px 56px; }
+
+  h1 { font-size: 2.6em; }
+  h2 { font-size: 1.85em; }
+  p, li { font-size: 1.18em; }
+}
+
+@media screen and (max-width: 700px) {
+  body { padding: 14px 0 40px; }
+
+  .topbar, .cover, .book-shell { width: calc(100% - 22px); }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .pdf-btn {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1.08em;
+  }
+
+  .topbar .hint { text-align: center; font-size: 1em; }
+
+  .cover { padding: 40px 16px 34px; border-radius: 14px 14px 0 0; }
+  .cover::before { font-size: 250px; top: -70px; }
+  .cover-ornament { letter-spacing: 8px; margin-bottom: 18px; }
+  .cover-name { font-size: 2.05em; }
+  .cover-book-title { font-size: 1.2em; }
+  .cover-dua { font-size: 1.22em; }
+
+  .book-shell { border-radius: 0 0 14px 14px; }
+  .book-shell::after { inset: 10px; border-radius: 12px; }
+
+  .document-wrapper { padding: 22px 14px 34px; }
+
+  .index-container { padding: 24px 12px 14px; }
+  .index-container::before { font-size: 1.55em; }
+  .index-dots { display: none; }
+  .index-row { padding: 8px 6px; border-bottom: 1px solid rgba(176,141,87,0.18); }
+  .index-title { white-space: normal; }
+  .index-page { min-width: unset; margin-right: auto; font-weight: 800; }
+  .index-bab { padding-right: 10px; }
+  .index-masala { padding-right: 20px; }
+
+  h1 { font-size: 2.1em; margin: 36px 0 20px; }
+  h1::after { width: 120px; }
+  h2 { font-size: 1.55em; padding: 12px 10px; margin: 26px 0 16px; border-right-width: 6px; border-left-width: 6px; }
+  h3 { font-size: 1.35em; padding: 10px 14px; }
+
+  p { font-size: 1.12em; text-indent: 0.6em; }
+
+  .religious-block, .quran-block { font-size: 1.25em; padding: 18px 14px; line-height: 2.05; }
+  .quote-container { padding: 18px 16px; font-size: 1.14em; }
+  .metadata { width: 100%; justify-content: flex-start; font-size: 0.95em; }
+  li { padding: 10px 44px 10px 12px; font-size: 1.12em; }
+}
+
+@media screen and (max-width: 420px) {
+  .cover-name { font-size: 1.85em; }
+  h1 { font-size: 2em; }
+  .religious-block, .quran-block { font-size: 1.15em; }
+}
+
+/* موبايل صغير جدًا */
+@media screen and (max-width: 420px) {
+  .cover-name {
+    font-size: 1.85em !important;
+  }
+  h1 {
+    font-size: 2em !important;
+  }
+  .religious-block,
+  .quran-block {
+    font-size: 1.18em !important;
+  }
+}
     </style>
   </head>
 
