@@ -1,0 +1,985 @@
+:root {
+  --gold: #b08d57;
+  --gold-2: #c9a46a;
+  --gold-pale: #f5e6c8;
+
+  --green-deep: #1a472a;
+  --green-dark: #0e2e18;
+  --green-mid: #2d6a4f;
+
+  --ink: #1c1b19;
+  --ink-soft: #3a342c;
+
+  --paper: #fffdf6;
+  --paper-2: #fbf4e6;
+  --paper-edge: rgba(176, 141, 87, 0.18);
+  --paper-shadow: rgba(0, 0, 0, 0.12);
+
+  --hadith-bg: #f6fbf6;
+  --meta-bg: #faf5ea;
+
+  /* layout vars */
+  --page-max: 1100px;
+  --page-padding-x: 22px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 20% 20%,
+      rgba(176, 141, 87, 0.1) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(26, 71, 42, 0.08) 0%,
+      transparent 60%
+    ),
+    #efe8dc;
+
+  font-family: "Amiri", serif;
+  color: var(--ink);
+  line-height: 2;
+  padding: 34px 0 70px;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   TOP BAR + PDF BUTTON (لو هتستخدمه)
+============================================================ */
+.topbar {
+  width: min(var(--page-max), calc(100% - (var(--page-padding-x) * 2)));
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  direction: rtl;
+}
+
+.topbar .hint {
+  color: rgba(28, 27, 25, 0.7);
+  font-size: 1.05em;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(176, 141, 87, 0.2);
+  padding: 10px 14px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+.pdf-btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font-family: "Amiri", serif;
+  font-weight: 700;
+  font-size: 1.1em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green-deep), var(--green-dark));
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.pdf-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.pdf-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.pdf-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================================
+   COVER
+============================================================ */
+.cover {
+  width: min(var(--page-max), calc(100% - (var(--page-padding-x) * 2)));
+  margin: 0 auto;
+  background: linear-gradient(
+    150deg,
+    var(--green-deep) 0%,
+    var(--green-dark) 58%,
+    #071a0d 100%
+  );
+  color: #fff;
+  text-align: center;
+  padding: 66px 72px 60px;
+  direction: rtl;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  box-shadow:
+    0 -5px 0 var(--gold) inset,
+    0 18px 55px rgba(0, 0, 0, 0.22);
+}
+
+.cover::before {
+  content: "❁";
+  position: absolute;
+  font-size: 360px;
+  color: rgba(255, 255, 255, 0.035);
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.cover-ornament {
+  color: var(--gold);
+  font-size: 1.9em;
+  letter-spacing: 12px;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.cover-book-title {
+  font-family: "Scheherazade New", serif;
+  font-size: 1.6em;
+  color: rgba(255, 255, 255, 0.68);
+  margin-bottom: 22px;
+}
+
+.cover-divider {
+  width: 150px;
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--gold), transparent);
+  margin: 0 auto 26px;
+}
+
+.cover-name {
+  font-family: "Scheherazade New", serif;
+  font-size: 2.6em;
+  font-weight: 700;
+  color: var(--gold-pale);
+  margin-bottom: 10px;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.45);
+}
+
+.cover-label {
+  font-size: 1.22em;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 30px;
+}
+
+.cover-dua {
+  font-family: "Scheherazade New", serif;
+  font-size: 1.55em;
+  color: var(--gold-2);
+  border-top: 1px solid rgba(176, 141, 87, 0.45);
+  padding-top: 22px;
+  font-style: italic;
+}
+
+/* ============================================================
+   BOOK SHEET (TRADITIONAL PAGE)
+============================================================ */
+.book-shell {
+  width: min(var(--page-max), calc(100% - (var(--page-padding-x) * 2)));
+  margin: 0 auto;
+  background: var(--paper);
+  border-radius: 0 0 16px 16px;
+  box-shadow:
+    0 26px 70px var(--paper-shadow),
+    0 2px 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* paper texture (subtle) */
+.book-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(176, 141, 87, 0.05) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(26, 71, 42, 0.04) 0%,
+      transparent 40%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.012) 0px,
+      rgba(0, 0, 0, 0.012) 1px,
+      transparent 2px,
+      transparent 6px
+    );
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* inner ornate border */
+.book-shell::after {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border: 1px solid var(--paper-edge);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.document-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 70px 78px 86px;
+  direction: rtl;
+  text-align: right;
+}
+
+/* ============================================================
+   INDEX (3 LEVELS: كتاب > باب > مسألة)
+============================================================ */
+.index-container {
+  border: 1px solid rgba(176, 141, 87, 0.45);
+  border-top: 4px solid var(--gold);
+  padding: 40px 34px 30px;
+  margin-bottom: 64px;
+  background: linear-gradient(180deg, var(--paper-2) 0%, var(--paper) 100%);
+  border-radius: 12px;
+  position: relative;
+}
+
+.index-container::before {
+  content: "✦  فهرس المحتويات  ✦";
+  display: block;
+  text-align: center;
+  font-family: "Scheherazade New", serif;
+  font-size: 2em;
+  color: var(--gold);
+  margin-bottom: 26px;
+  padding-bottom: 14px;
+  border-bottom: 1px double rgba(176, 141, 87, 0.7);
+  letter-spacing: 2px;
+}
+
+.index-row {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  color: var(--ink);
+  margin-bottom: 7px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  transition: background 0.18s;
+}
+.index-row:hover {
+  background: rgba(176, 141, 87, 0.1);
+  color: var(--green-deep);
+}
+
+.index-title {
+  order: 1;
+  white-space: nowrap;
+}
+.index-dots {
+  order: 2;
+  flex-grow: 1;
+  border-bottom: 1px dashed rgba(176, 141, 87, 0.55);
+  margin: 0 10px;
+  height: 13px;
+}
+.index-page {
+  order: 3;
+  font-weight: 700;
+  min-width: 40px;
+  text-align: left;
+  color: var(--gold);
+}
+
+/* level: book */
+.index-book {
+  font-weight: 800;
+  font-size: 1.18em;
+  color: var(--green-deep);
+  margin-top: 16px;
+  padding-top: 10px;
+  border-bottom: 1px solid rgba(176, 141, 87, 0.22);
+}
+.index-book .index-title::before {
+  content: "⬥ ";
+  color: var(--gold);
+}
+
+/* level: bab */
+.index-bab {
+  font-weight: 700;
+  font-size: 1.08em;
+  color: var(--green-mid);
+  padding-right: 18px;
+  margin-top: 8px;
+}
+.index-bab .index-title::before {
+  content: "◈ ";
+  color: var(--gold);
+}
+
+/* level: masala */
+.index-masala {
+  font-weight: 400;
+  font-size: 1.03em;
+  padding-right: 40px;
+  color: var(--ink);
+}
+.index-masala .index-title::before {
+  content: "• ";
+  color: rgba(26, 71, 42, 0.55);
+  font-weight: 700;
+}
+
+/* ============================================================
+   SECTION ORNAMENT
+============================================================ */
+.ornament-header {
+  text-align: center;
+  margin: 0 0 54px;
+  color: var(--gold);
+  font-size: 1.4em;
+  letter-spacing: 10px;
+  opacity: 0.75;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+/* كتاب */
+h1 {
+  text-align: center;
+  font-family: "Scheherazade New", serif;
+  font-size: 3.15em;
+  color: var(--green-deep);
+  margin: 58px 0 32px;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+h1::before {
+  content: "❁";
+  display: block;
+  margin: 0 auto 6px;
+  color: rgba(176, 141, 87, 0.55);
+  font-size: 0.55em;
+  letter-spacing: 6px;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 170px;
+  height: 2px;
+  background: linear-gradient(to left, transparent, var(--gold), transparent);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+/* باب */
+h2 {
+  font-family: "Scheherazade New", serif;
+  font-size: 2.1em;
+  color: var(--green-mid);
+  text-align: center;
+  margin: 44px 0 26px;
+  padding: 16px 22px;
+  background: linear-gradient(
+    to left,
+    rgba(26, 71, 42, 0.03),
+    rgba(26, 71, 42, 0.08),
+    rgba(26, 71, 42, 0.03)
+  );
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-right: 7px solid var(--gold);
+  border-left: 7px solid var(--gold);
+  border-radius: 12px;
+}
+
+h2::before,
+h2::after {
+  content: "❧";
+  color: var(--gold);
+  font-size: 0.72em;
+  margin: 0 10px;
+  opacity: 0.75;
+}
+
+/* عناوين داخل المسألة */
+h3 {
+  font-size: 1.58em;
+  color: var(--green-deep);
+  margin: 34px 0 14px;
+  padding: 10px 20px;
+  border-right: 6px solid var(--gold);
+  background: linear-gradient(to left, transparent, rgba(176, 141, 87, 0.08));
+  border-radius: 0 10px 10px 0;
+}
+
+/* مسألة */
+.metadata {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--meta-bg);
+  border: 1px solid rgba(176, 141, 87, 0.28);
+  border-right: 7px solid var(--green-mid);
+  color: #4b4338;
+  font-size: 0.96em;
+  font-weight: 800;
+  padding: 10px 16px;
+  border-radius: 0 14px 14px 0;
+  margin: 26px 0 14px;
+  width: fit-content;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.metadata::before {
+  content: "✦";
+  color: var(--gold);
+  font-size: 1em;
+  flex-shrink: 0;
+}
+
+p {
+  font-size: 1.28em;
+  text-align: justify;
+  margin-bottom: 18px;
+  color: var(--ink-soft);
+  text-indent: 1em;
+}
+
+/* Blocks */
+.religious-block {
+  background: var(--hadith-bg);
+  border: 1px solid #c8e0c8;
+  border-top: 4px solid var(--green-mid);
+  padding: 28px 44px;
+  margin: 32px 0;
+  font-family: "Scheherazade New", serif;
+  font-size: 1.65em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.9;
+  color: var(--green-deep);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 10px 22px rgba(26, 71, 42, 0.08);
+}
+.religious-block::before {
+  content: "﴿";
+  color: var(--gold);
+  font-size: 1.1em;
+  margin-left: 6px;
+}
+.religious-block::after {
+  content: "﴾";
+  color: var(--gold);
+  font-size: 1.1em;
+  margin-right: 6px;
+}
+
+.quran-block {
+  background: #f1f8f1;
+  border: 1px solid #a8cfa8;
+  border-top: 5px solid var(--green-deep);
+  padding: 30px 48px;
+  margin: 32px 0;
+  font-family: "Scheherazade New", serif;
+  font-size: 1.72em;
+  font-weight: bold;
+  text-align: justify;
+  line-height: 2.15;
+  color: var(--green-dark);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 10px 26px rgba(26, 71, 42, 0.1);
+  position: relative;
+}
+.quran-block::before {
+  content: "قال الله تعالى";
+  display: block;
+  font-size: 0.6em;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+  font-family: "Amiri", serif;
+}
+.quran-block::after {
+  content: none;
+}
+
+.quote-container {
+  position: relative;
+  font-style: italic;
+  padding: 22px 30px 22px 22px;
+  margin: 28px 0;
+  background: #fdfbf7;
+  border-right: 6px solid var(--gold);
+  border-radius: 0 14px 14px 0;
+  font-size: 1.23em;
+  color: var(--ink-soft);
+  box-shadow: 0 10px 20px rgba(176, 141, 87, 0.12);
+}
+.quote-container::before {
+  content: "\201C";
+  position: absolute;
+  top: -12px;
+  right: 22px;
+  font-size: 4em;
+  color: var(--gold);
+  opacity: 0.23;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+/* lists */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+li {
+  font-size: 1.28em;
+  margin-bottom: 12px;
+  padding: 10px 50px 10px 14px;
+  position: relative;
+  background: rgba(176, 141, 87, 0.06);
+  border-radius: 10px;
+  color: var(--ink-soft);
+  border-right: 3px solid rgba(176, 141, 87, 0.24);
+}
+li::before {
+  content: "◆";
+  color: var(--gold);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65em;
+}
+
+/* nested lists */
+li > ul {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding-right: 18px;
+}
+li > ul > li {
+  background: rgba(26, 71, 42, 0.04);
+  border-right: 3px solid rgba(26, 71, 42, 0.18);
+  font-size: 1.08em;
+}
+
+/* separators */
+.separator {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0;
+  color: var(--gold);
+}
+.separator::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(176, 141, 87, 0.55));
+}
+.separator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(176, 141, 87, 0.55));
+}
+.separator span {
+  font-size: 1.3em;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.fiqh-note {
+  background: #fefaf2;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-right: 6px solid var(--gold-2);
+  border-radius: 0 14px 14px 0;
+  padding: 16px 22px;
+  margin: 18px 0;
+  font-size: 1.2em;
+  color: #555;
+  position: relative;
+}
+.fiqh-note::before {
+  content: "تنبيه فقهي";
+  display: block;
+  font-size: 0.78em;
+  font-weight: bold;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+/* ===========================
+   RULE SECTION (قواعد + أمثلة)
+=========================== */
+.rule-section {
+  margin: 34px 0 44px;
+}
+.rule-card {
+  background: #fff;
+  border: 1px solid rgba(176, 141, 87, 0.28);
+  border-right: 7px solid var(--gold);
+  border-radius: 0 14px 14px 0;
+  padding: 18px 20px;
+  margin: 16px 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+.rule-title {
+  font-size: 1.35em;
+  font-weight: 800;
+  color: var(--green-deep);
+  margin-bottom: 10px;
+}
+/* =========================
+   FIX: ordered lists (examples) should keep numbers
+========================= */
+.examples {
+  list-style: decimal;
+  padding-right: 22px; /* RTL */
+  margin: 14px 0 0;
+}
+
+.examples li {
+  list-style: decimal;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 1.15em;
+  color: var(--ink-soft);
+}
+
+/* remove the decorative diamond on examples list items */
+.examples li::before {
+  content: none !important;
+}
+.bullets {
+  margin-top: 10px;
+}
+.bullets > li {
+  background: rgba(176, 141, 87, 0.06);
+  border-radius: 12px;
+  padding: 12px 44px 12px 14px;
+  margin: 10px 0;
+}
+
+/* ============================================================
+   PRINT
+============================================================ */
+p,
+.religious-block,
+.quran-block,
+.quote-container,
+ul,
+li,
+.metadata,
+.separator,
+.ornament-header,
+h3,
+.fiqh-note,
+.rule-card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+h1 {
+  break-before: page;
+  page-break-before: always;
+}
+h1#intro {
+  break-before: avoid;
+  page-break-before: avoid;
+}
+.index-container {
+  break-after: page;
+  page-break-after: always;
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    padding: 0 !important;
+  }
+  .topbar {
+    display: none !important;
+  }
+  .cover {
+    width: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 50mm 25mm !important;
+    break-after: page;
+    page-break-after: always;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .book-shell {
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .book-shell::before,
+  .book-shell::after {
+    display: none !important;
+  }
+  .document-wrapper {
+    padding: 14mm 18mm !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media screen and (max-width: 1024px) {
+  body {
+    padding: 22px 0 55px;
+  }
+
+  .document-wrapper {
+    padding: 46px 40px 56px;
+  }
+
+  h1 {
+    font-size: 2.6em;
+  }
+  h2 {
+    font-size: 1.85em;
+  }
+  p,
+  li {
+    font-size: 1.18em;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    padding: 14px 0 40px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .pdf-btn {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1.08em;
+  }
+
+  .topbar .hint {
+    text-align: center;
+    font-size: 1em;
+  }
+
+  .cover {
+    padding: 40px 16px 34px;
+    border-radius: 14px 14px 0 0;
+  }
+  .cover::before {
+    font-size: 250px;
+    top: -70px;
+  }
+  .cover-ornament {
+    letter-spacing: 8px;
+    margin-bottom: 18px;
+  }
+  .cover-name {
+    font-size: 2.05em;
+  }
+  .cover-book-title {
+    font-size: 1.2em;
+  }
+  .cover-dua {
+    font-size: 1.22em;
+  }
+
+  .book-shell {
+    border-radius: 0 0 14px 14px;
+  }
+  .book-shell::after {
+    inset: 10px;
+    border-radius: 12px;
+  }
+
+  .document-wrapper {
+    padding: 22px 14px 34px;
+  }
+
+  .index-container {
+    padding: 24px 12px 14px;
+  }
+  .index-container::before {
+    font-size: 1.55em;
+  }
+  .index-dots {
+    display: none;
+  }
+  .index-row {
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(176, 141, 87, 0.18);
+  }
+  .index-title {
+    white-space: normal;
+  }
+  .index-page {
+    min-width: unset;
+    margin-right: auto;
+    font-weight: 800;
+  }
+  .index-bab {
+    padding-right: 10px;
+  }
+  .index-masala {
+    padding-right: 20px;
+  }
+
+  h1 {
+    font-size: 2.1em;
+    margin: 36px 0 20px;
+  }
+  h1::after {
+    width: 120px;
+  }
+  h2 {
+    font-size: 1.55em;
+    padding: 12px 10px;
+    margin: 26px 0 16px;
+    border-right-width: 6px;
+    border-left-width: 6px;
+  }
+  h3 {
+    font-size: 1.35em;
+    padding: 10px 14px;
+  }
+
+  p {
+    font-size: 1.12em;
+    text-indent: 0.6em;
+  }
+
+  .religious-block,
+  .quran-block {
+    font-size: 1.25em;
+    padding: 18px 14px;
+    line-height: 2.05;
+  }
+
+  .quote-container {
+    padding: 18px 16px;
+    font-size: 1.14em;
+  }
+
+  .metadata {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 0.95em;
+  }
+
+  li {
+    padding: 10px 44px 10px 12px;
+    font-size: 1.12em;
+  }
+
+  /* nested list on mobile */
+  li > ul {
+    padding-right: 12px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .cover-name {
+    font-size: 1.85em;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  .religious-block,
+  .quran-block {
+    font-size: 1.15em;
+  }
+
+  .rule-card {
+    padding: 14px 14px;
+    border-radius: 0 12px 12px 0;
+  }
+  .rule-title {
+    font-size: 1.18em;
+  }
+  .examples {
+    padding-right: 18px;
+  }
+  .examples li {
+    font-size: 1.05em;
+    padding: 10px 12px;
+  }
+}
+#icon{
+    width:120px;
+    height:120px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+}
+.icon{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 170px;
+    width: 170px;
+    border-radius: 50%;
+    background-color: #a8cfa8;
+    position: fixed;
+    right: 15px;
+    bottom: 50px;
+}
