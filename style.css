@@ -935,7 +935,7 @@ h1#intro {
   }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 500px) {
   .cover-name {
     font-size: 1.85em;
   }
@@ -962,24 +962,50 @@ h1#intro {
     padding: 10px 12px;
   }
 }
-#icon{
-    width:120px;
-    height:120px;
-    padding: 0;
-    margin: 0;
-    border-radius: 50%;
+/* =========================
+   Floating icon (Back to top)
+========================= */
+.icon {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2000;
+
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+
+  background: rgba(168, 207, 168, 0.95);
+  border: 1px solid rgba(26, 71, 42, 0.22);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.icon{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 170px;
-    width: 170px;
-    border-radius: 50%;
-    background-color: #a8cfa8;
-    position: fixed;
-    right: 15px;
-    bottom: 50px;
+
+.icon i {
+  font-size: 20px;
+  color: #0e2e18;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.icon:hover i {
+  transform: translateY(-1px) scale(1.08);
+  color: #1a472a;
+}
+
+@media (max-width: 500px) {
+  .icon {
+    width: 46px;
+    height: 46px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .icon i {
+    font-size: 18px;
+  }
 }
